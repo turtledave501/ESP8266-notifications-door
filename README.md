@@ -10,3 +10,4 @@ Projekt by neměl být až tak náročný, ale nemám zkušenosti s Arduinem a W
 ## Co by měl finální produkt obsahovat?
 
 Program by měl být kompletní a snadě ovladatelný, Webhook by měl být veřejný.
+Zabezpečení: nepushovat API key a WiFi údaje
