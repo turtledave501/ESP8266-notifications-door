@@ -42,3 +42,5 @@ Program také obsahuje část kódu, která není momentálně použita (výpis 
 Před použitím programu je nutné zadat připojovací údaje k WiFi a API klíč od služby IFTTT do příslušných proměnných v kodu **Garage_Door.ino** (`ssid`, `password`, `apiKey`). Dále je nutné přizpůsobit název webhooku (`door_status`) a názvy parametrů (`value1` atd.) dle potřeby.
 
 Program se nahrává na desku ESP8266 a spouští se při zapnutí desky. Pokud dojde ke změně stavu dveří, program odešle informaci na IFTTT, to aktivuje webhook a pošle email na zadanou adresu.
+
+### pro detailnější instrukce: *https://randomnerdtutorials.com/door-status-monitor-using-the-esp8266/*
