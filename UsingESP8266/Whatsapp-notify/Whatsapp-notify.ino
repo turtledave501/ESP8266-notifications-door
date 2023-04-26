@@ -9,6 +9,13 @@ const char* Wifi_Password = "";
 String phone_num = "";
 String API = "";
 
+//pins
+const int reedSwitch = 4;
+const int LED = 2;
+
+//check if change interval is longer than 500ms
+unsigned long previousMillis = 0; 
+const long interval = 500;
 
 void setup() {
   Serial.begin(9600);

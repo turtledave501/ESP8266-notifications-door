@@ -1,7 +1,7 @@
 #include <ESP8266WiFi.h>
 
 const int reedSwitch = 4;
-const int LED = 2; //optional
+const int LED = 2;
 
 // Detects whenever the door changed state
 bool doorStatus = false;
@@ -10,7 +10,7 @@ bool doorStatus = false;
 bool state;
 String doorState;
 
-//check if change interval is longer than 1500ms
+//check if change interval is longer than 500ms
 unsigned long previousMillis = 0; 
 const long interval = 500;
 
