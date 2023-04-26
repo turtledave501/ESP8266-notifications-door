@@ -45,3 +45,27 @@ RAM_ATTR void changeDoorStatus() {
   doorState = true;
 }
 
+//setup and conencting to wifi
+void setup() {
+  Serial.begin(115200); //debug
+
+  //current door state
+  pinMode(reedSwitch, INPUT_PULLUP);
+  state = digitalRead(reedSwitch);
+
+  //LED depends on the door state
+  pinMode(led, OUTPUT);
+  digitalWrite(led, state);
+  
+  // Set the reedswitch pin as interrupt, assign interrupt function and set CHANGE mode
+  attachInterrupt(digitalPinToInterrupt(reedSwitch), changeDoorStatus, CHANGE);
+
+  // Connect to Wi-Fi
+  WiFi.begin(ssid, password);
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print("."); // connecting
+  }
+  Serial.println("");
+  Serial.println("WiFi connected, YEEEEEES");  
+}
