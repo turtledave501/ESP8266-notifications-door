@@ -28,5 +28,10 @@ int main() {
     const char* apiKey = apiKey.c_str();
     const char* host = "maker.ifttt.com";
 
+}
+
+RAM_ATTR void changeDoorStatus() {
+  Serial.println("Door status changed");
+  doorState = true;
 
 }
