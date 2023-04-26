@@ -8,21 +8,21 @@ Projekt nebude moc složitý, program by měl být relativně jednoduchý, ale m
 
 Program využívá následující knihovny:
 
-- `ESP8266WiFi.h` pro připojení k WiFi sítí
-- `iostream` a `fstream` pro práci s textovými soubory
-- `string` pro práci s řetězci
+- `ESP8266WiFi.h` pro připojení k WiFi síti
+
+- `iostream` a `fstream` pro práci s textovými soubory `string` pro práci s řetězci, zatím nefunguje.
 
 Program používá webhook od služby `IFTTT`.
 
 ## Popis programu
 
-Program monitoruje stav dveří pomocí reedových kontaktů. Pokud se stav dveří změní, odesílá program informaci o tomto stavu na předem definovaný webhook v IFTTT. Tím se umožní například odeslání notifikace nebo spuštění jiné akce.
+Program monitoruje stav dveří pomocí reedů. Pokud se stav dveří změní, odesílá program informaci o tomto stavu na předem definovaný webhook v IFTTT. Tím se umožní například odeslání notifikace, emailu nebo spuštění jiné akce.
 
 Program je rozdělen do několika funkcí:
 
 ### `setup()`
 
-- Funkce inicializuje vstupy a výstupy na desce ESP8266.
+- Funkce inicializuje vstupy a výstupy na ESP8266.
 - Nastavuje přerušení na reedových kontaktech.
 - Připojuje desku k WiFi síti.
 
@@ -39,6 +39,6 @@ Program také obsahuje část kódu, která není momentálně použita (výpis 
 
 ## Použití
 
-Před použitím programu je nutné zadat připojovací údaje k WiFi a API klíč od služby IFTTT do příslušných proměnných (`ssid`, `password`, `apiKey`). Dále je nutné přizpůsobit název webhooku (`door_status`) a názvy parametrů (`value1` atd.) dle potřeby.
+Před použitím programu je nutné zadat připojovací údaje k WiFi a API klíč od služby IFTTT do příslušných proměnných v kodu **Garage_Door.ino** (`ssid`, `password`, `apiKey`). Dále je nutné přizpůsobit název webhooku (`door_status`) a názvy parametrů (`value1` atd.) dle potřeby.
 
 Program se nahrává na desku ESP8266 a spouští se při zapnutí desky. Pokud dojde ke změně stavu dveří, program odešle informaci na IFTTT, to aktivuje webhook a pošle email na zadanou adresu.
