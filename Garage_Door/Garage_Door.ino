@@ -20,7 +20,7 @@ const long interval = 1500;
 #include <string>
 
 int main() {
-    std::ifstream inputFile("config.txt");
+    std::ifstream inputFile("privconfig.txt");
     std::string line;
     std::string ssid, password, apiKey;
 
@@ -43,8 +43,8 @@ int main() {
     const char* host = "maker.ifttt.com";
 
 }
-//store bool in RAM
-RAM_ATTR void changeDoorStatus() {
+//store bool in RAM 
+ICACHE_RAM_ATTR void changeDoorStatus() {
   Serial.println("Door status changed");
   doorStatus = true;
 }
@@ -93,3 +93,26 @@ void loop() {
       doorStatus = false;
       Serial.println(state);
       Serial.println(doorState);
+
+      //Email part
+
+      String url = "/trigger/door_status/with/key/"; //key is API
+      url += apiKey;
+
+      Serial.print("Connecting to host");
+      Serial.println(host);
+      WiFiClient client;
+      const int httpPort = 80;
+      if (!client.connect(host, httpPort)) { //if connection fails
+        Serial.println("connection unsuccesful");
+        return;
+      }
+
+      Serial.print("Requesting URL: ");
+      Serial.println(url);
+      client.print(String("POST ") + url + " HTTP/1.1\r\n" +
+                          "Host: " + host + "\r\n" + 
+                          "Content-Type: application/x-www-form-urlencoded\r\n" + 
+                          "Content-Length: 13\r\n\r\n" +
+                          "value1=" + doorState + "\r\n"); //email subject if door is "open" or "closed"
+}
