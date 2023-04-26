@@ -8,7 +8,7 @@ bool doorStatus = false;
 
 // Holds reedswitch state (1=opened, 0=close)
 bool state;
-String doorStatus;
+String doorState;
 
 //check if change interval is longer than 1500ms
 unsigned long previousMillis = 0; 
@@ -84,7 +84,12 @@ void loop() {
       // If a state has occured, invert the current door state   
       state = !state; // Invert door state
       if(state) {
-        doorStatus = "closed";
+        doorState = "closed";
       }
       else{
-        doorStatus = "open";
+        doorState = "open";
+      //prints door state
+      digitalWrite(led, state);
+      doorStatus = false;
+      Serial.println(state);
+      Serial.println(doorState);
