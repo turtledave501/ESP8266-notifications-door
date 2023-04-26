@@ -1,8 +1,8 @@
 # Dokumentace programu pro monitorování stavu dveří pomocí ESP8266 a IFTTT
 
-## Náročnost
+## očekávaná náročnost
 
-Program je určen pro pokročilé uživatele s povědomím o programování v jazyce C++ a s minimální znalostí platformy ESP8266 a protokolu WiFi.
+Projekt nebude moc složitý, program by měl být relativně jednoduchý, ale můžou se vyskytnout problémy se znalostmi C++, arduinem a nejspíš budu muset trochu pájet. Implementace IFTTT vypadá jednoduše.
 
 ## Použité zdroje
 
@@ -12,7 +12,7 @@ Program využívá následující knihovny:
 - `iostream` a `fstream` pro práci s textovými soubory
 - `string` pro práci s řetězci
 
-Dále je nutné mít k dispozici platný API klíč od služby IFTTT.
+Program používá webhook od služby `IFTTT`.
 
 ## Popis programu
 
