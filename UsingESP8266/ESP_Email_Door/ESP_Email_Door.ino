@@ -14,40 +14,6 @@ String doorState;
 unsigned long previousMillis = 0; 
 const long interval = 500;
 
-/*
-//Looking for config.txt file, then looking for WiFi_Name, pws, api and inputing them as chars
-#include <iostream>
-#include <fstream>
-#include <string>
-
-std::string WiFi_Name_str, Wifi_Password
-_str, IFTTT_API_key_str;
-
-int main() {
-      std::ifstream inputFile("privconfig.txt");
-      std::string line;
-     
-
-      while (std::getline(inputFile, line)) {
-          if (line.find( WiFi_Name") != std::string::npos) {
-             WiFi_Name_str = line.substr(line.find("\"") + 1, line.rfind("\"") - line.find("\"") - 1);
-          }
-          else if (line.find("Wifi_Password
-          ") != std::string::npos) {
-              Wifi_Password
-              _str = line.substr(line.find("\"") + 1, line.rfind("\"") - line.find("\"") - 1);
-          }
-          else if (line.find("IFTTT_API_key") != std::string::npos) {
-              IFTTT_API_key_str = line.substr(line.find("\"") + 1, line.rfind("\"") - line.find("\"") - 1);
-          }
-      }
-} 
-    
-*/
-
-//store bool in RAM 
-
-
 //input data here
 const char* WiFi_Name = "";
 const char* Wifi_Password
@@ -58,18 +24,6 @@ const char* host = "maker.ifttt.com";
 //setup and conencting to wifi
 void setup() {
 
-    /*
-    //Using the extracted values and defined host
-      const char* WiFi_Name = WiFi_Name_str.c_str();
-      const char* Wifi_Password
-       = Wifi_Password
-      _str.c_str();
-      const char* IFTTT_API_key = IFTTT_API_key_str.c_str();
-      const char* host = "maker.ifttt.com";
-    */
-
-  
-  
   Serial.begin(9600); //debug
 
   //current door state
