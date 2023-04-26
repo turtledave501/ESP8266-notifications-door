@@ -14,44 +14,60 @@ String doorState;
 unsigned long previousMillis = 0; 
 const long interval = 1500;
 
+/*
 //Looking for config.txt file, then looking for ssid, pws, api and inputing them as chars
 #include <iostream>
 #include <fstream>
 #include <string>
 
+std::string ssid_str, password_str, apiKey_str;
+
 int main() {
-    std::ifstream inputFile("privconfig.txt");
-    std::string line;
-    std::string ssid_str, password_str, apiKey_str;
+      std::ifstream inputFile("privconfig.txt");
+      std::string line;
+     
 
-    while (std::getline(inputFile, line)) {
-        if (line.find("ssid") != std::string::npos) {
-            ssid_str = line.substr(line.find("\"") + 1, line.rfind("\"") - line.find("\"") - 1);
-        }
-        else if (line.find("password") != std::string::npos) {
-            password_str = line.substr(line.find("\"") + 1, line.rfind("\"") - line.find("\"") - 1);
-        }
-        else if (line.find("apiKey") != std::string::npos) {
-            apiKey_str = line.substr(line.find("\"") + 1, line.rfind("\"") - line.find("\"") - 1);
-        }
-    }
+      while (std::getline(inputFile, line)) {
+          if (line.find("ssid") != std::string::npos) {
+              ssid_str = line.substr(line.find("\"") + 1, line.rfind("\"") - line.find("\"") - 1);
+          }
+          else if (line.find("password") != std::string::npos) {
+              password_str = line.substr(line.find("\"") + 1, line.rfind("\"") - line.find("\"") - 1);
+          }
+          else if (line.find("apiKey") != std::string::npos) {
+              apiKey_str = line.substr(line.find("\"") + 1, line.rfind("\"") - line.find("\"") - 1);
+          }
+      }
+} 
+    
+*/
 
-    //Using the extracted values and defined host
-    const char* ssid = ssid_str.c_str();
-    const char* password = password_str.c_str();
-    const char* apiKey = apiKey_str.c_str();
-    const char* host = "maker.ifttt.com";
-
-}
 //store bool in RAM 
 ICACHE_RAM_ATTR void changeDoorStatus() {
   Serial.println("Door status changed");
   doorStatus = true;
 }
 
+//input data here
+const char* ssid = "";
+const char* password = ""; 
+const char* apiKey = "";
+const char* host = "maker.ifttt.com";
+
 //setup and conencting to wifi
 void setup() {
-  Serial.begin(115200); //debug
+
+    /*
+    //Using the extracted values and defined host
+      const char* ssid = ssid_str.c_str();
+      const char* password = password_str.c_str();
+      const char* apiKey = apiKey_str.c_str();
+      const char* host = "maker.ifttt.com";
+    */
+
+  
+  
+  Serial.begin(9600); //debug
 
   //current door state
   pinMode(reedSwitch, INPUT_PULLUP);
@@ -95,24 +111,27 @@ void loop() {
       Serial.println(doorState);
 
       //Email part
-
-      String url = "/trigger/door_status/with/key/"; //key is API
-      url += apiKey;
-
-      Serial.print("Connecting to host");
+      Serial.print("connecting to ");
       Serial.println(host);
       WiFiClient client;
       const int httpPort = 80;
-      if (!client.connect(host, httpPort)) { //if connection fails
-        Serial.println("connection unsuccesful");
+      if (!client.connect(host, httpPort)) {
+        Serial.println("connection failed");
         return;
       }
-
+    
+      String url = "/trigger/door_status/with/key/"; 
+      url += apiKey;
+          
       Serial.print("Requesting URL: ");
       Serial.println(url);
       client.print(String("POST ") + url + " HTTP/1.1\r\n" +
                           "Host: " + host + "\r\n" + 
                           "Content-Type: application/x-www-form-urlencoded\r\n" + 
                           "Content-Length: 13\r\n\r\n" +
-                          "value1=" + doorState + "\r\n"); //email subject if door is "open" or "closed"
+                          "value1=" + doorState + "\r\n"); // email subject if door is "closed" or "open"
+    }  
+  }
 }
+}
+      
