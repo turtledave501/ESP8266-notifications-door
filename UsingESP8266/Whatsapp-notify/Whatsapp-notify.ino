@@ -23,6 +23,31 @@ const int LED = 2;
 unsigned long previousMillis = 0; 
 const long interval = 500;
 
+//message part
+  void sendMessage(String message){
+
+  // Data to send with HTTP POST
+  String url = "http://api.callmebot.com/whatsapp.php?phone=" + phone_num + "&apikey=" + API + "&text=" + urlEncode(message);
+  WiFiClient client;    
+  HTTPClient http;
+  http.begin(client, url);
+
+  // Specify content-type header
+  http.addHeader("Content-Type", "application/x-www-form-urlencoded");
+  
+  // Send HTTP POST request
+  int httpResponseCode = http.POST(url);
+  if (httpResponseCode == 200){
+    Serial.print("Message sent");
+  }
+  else{
+    Serial.println("Error");
+    Serial.print("HTTP response code: ");
+    Serial.println(httpResponseCode);
+  }
+
+}
+
 void setup() {
 
   Serial.begin(9600); //debug
@@ -39,7 +64,7 @@ void setup() {
   attachInterrupt(digitalPinToInterrupt(reedSwitch), changeDoorStatus, CHANGE);
 
   // Connect to Wi-Fi
-  WiFi.begin (WiFi_Name, Wifi_Password);
+  WiFi.begin (Wifi_Name, Wifi_Password);
   
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
@@ -58,7 +83,7 @@ void loop() {
   
   if (doorStatus){
     unsigned long currentMillis = millis();
-    if(currentMillis - previousMillis >= interval) { //this is so that updates aren't called rapidly but it waits 1500ms
+    if(currentMillis - previousMillis >= interval) { //this is so that updates aren't called rapidly but it waits 500ms
       previousMillis = currentMillis; 
       // If a state has occured, invert the current door state   
       state = !state; // Invert door state
@@ -74,7 +99,8 @@ void loop() {
       Serial.println(state);
       Serial.println(doorState);
       
-
+      sendMessage("door: " + doorState);
   }
+}
 }
 
