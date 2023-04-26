@@ -104,6 +104,7 @@ void loop() {
       }
       else{
         doorState = "open";
+      }  
       //prints door state
       digitalWrite(led, state);
       doorStatus = false;
@@ -116,7 +117,7 @@ void loop() {
       WiFiClient client;
       const int httpPort = 80;
       if (!client.connect(host, httpPort)) {
-        Serial.println("connection failed");
+        Serial.println("connection unsuccesful");
         return;
       }
     
@@ -132,6 +133,5 @@ void loop() {
                           "value1=" + doorState + "\r\n"); // email subject if door is "closed" or "open"
     }  
   }
-}
 }
       
