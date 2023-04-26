@@ -1,7 +1,7 @@
 #include <ESP8266WiFi.h>
 
 const int reedSwitch = 4;
-const int led = 2; //optional
+const int LED = 2; //optional
 
 // Detects whenever the door changed state
 bool doorStatus = false;
@@ -12,15 +12,16 @@ String doorState;
 
 //check if change interval is longer than 1500ms
 unsigned long previousMillis = 0; 
-const long interval = 1500;
+const long interval = 500;
 
 /*
-//Looking for config.txt file, then looking for ssid, pws, api and inputing them as chars
+//Looking for config.txt file, then looking for WiFi_Name, pws, api and inputing them as chars
 #include <iostream>
 #include <fstream>
 #include <string>
 
-std::string ssid_str, password_str, apiKey_str;
+std::string WiFi_Name_str, Wifi_Password
+_str, IFTTT_API_key_str;
 
 int main() {
       std::ifstream inputFile("privconfig.txt");
@@ -28,14 +29,16 @@ int main() {
      
 
       while (std::getline(inputFile, line)) {
-          if (line.find("ssid") != std::string::npos) {
-              ssid_str = line.substr(line.find("\"") + 1, line.rfind("\"") - line.find("\"") - 1);
+          if (line.find( WiFi_Name") != std::string::npos) {
+             WiFi_Name_str = line.substr(line.find("\"") + 1, line.rfind("\"") - line.find("\"") - 1);
           }
-          else if (line.find("password") != std::string::npos) {
-              password_str = line.substr(line.find("\"") + 1, line.rfind("\"") - line.find("\"") - 1);
+          else if (line.find("Wifi_Password
+          ") != std::string::npos) {
+              Wifi_Password
+              _str = line.substr(line.find("\"") + 1, line.rfind("\"") - line.find("\"") - 1);
           }
-          else if (line.find("apiKey") != std::string::npos) {
-              apiKey_str = line.substr(line.find("\"") + 1, line.rfind("\"") - line.find("\"") - 1);
+          else if (line.find("IFTTT_API_key") != std::string::npos) {
+              IFTTT_API_key_str = line.substr(line.find("\"") + 1, line.rfind("\"") - line.find("\"") - 1);
           }
       }
 } 
@@ -43,15 +46,13 @@ int main() {
 */
 
 //store bool in RAM 
-ICACHE_RAM_ATTR void changeDoorStatus() {
-  Serial.println("Door status changed");
-  doorStatus = true;
-}
+
 
 //input data here
-const char* ssid = "";
-const char* password = ""; 
-const char* apiKey = "";
+const char* WiFi_Name = "";
+const char* Wifi_Password
+ = ""; 
+const char* IFTTT_API_key = "";
 const char* host = "maker.ifttt.com";
 
 //setup and conencting to wifi
@@ -59,9 +60,11 @@ void setup() {
 
     /*
     //Using the extracted values and defined host
-      const char* ssid = ssid_str.c_str();
-      const char* password = password_str.c_str();
-      const char* apiKey = apiKey_str.c_str();
+      const char* WiFi_Name = WiFi_Name_str.c_str();
+      const char* Wifi_Password
+       = Wifi_Password
+      _str.c_str();
+      const char* IFTTT_API_key = IFTTT_API_key_str.c_str();
       const char* host = "maker.ifttt.com";
     */
 
@@ -74,28 +77,33 @@ void setup() {
   state = digitalRead(reedSwitch);
 
   //LED depends on the door state
-  pinMode(led, OUTPUT);
-  digitalWrite(led, state);
+  pinMode(LED, OUTPUT);
+  digitalWrite(LED, state);
   
   // Set the reedswitch pin as interrupt, assign interrupt function and set CHANGE mode
   attachInterrupt(digitalPinToInterrupt(reedSwitch), changeDoorStatus, CHANGE);
 
   // Connect to Wi-Fi
-  WiFi.begin(ssid, password);
+  WiFi.begin (WiFi_Name, Wifi_Password);
+  
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
     Serial.print("."); // connecting
   }
   Serial.println("");
-  Serial.println("WiFi connected, YEEEEEES");  
+  Serial.println("WiFi connected!!!!");  
 }
 
+ICACHE_RAM_ATTR void changeDoorStatus() {
+  Serial.println("Door status changed");
+  doorStatus = true;
+}
 //update void
 void loop() {
   
   if (doorStatus){
     unsigned long currentMillis = millis();
-    if(currentMillis - previousMillis >= interval) { //this is so that updates aren't called rapidly but it waits 1500ms
+    if(currentMillis - previousMillis >= interval) { //this is so that updates aren't calLED rapidly but it waits 1500ms
       previousMillis = currentMillis; 
       // If a state has occured, invert the current door state   
       state = !state; // Invert door state
@@ -106,7 +114,7 @@ void loop() {
         doorState = "open";
       }  
       //prints door state
-      digitalWrite(led, state);
+      digitalWrite(LED, state);
       doorStatus = false;
       Serial.println(state);
       Serial.println(doorState);
@@ -122,8 +130,9 @@ void loop() {
       }
     
       String url = "/trigger/door_status/with/key/"; 
-      url += apiKey;
-          
+      url += IFTTT_API_key;
+
+      //POST payload    
       Serial.print("Requesting URL: ");
       Serial.println(url);
       client.print(String("POST ") + url + " HTTP/1.1\r\n" +
@@ -134,4 +143,4 @@ void loop() {
     }  
   }
 }
-      
+
