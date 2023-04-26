@@ -43,4 +43,5 @@ Před použitím programu je nutné zadat připojovací údaje k WiFi a API klí
 
 Program se nahrává na desku ESP8266 a spouští se při zapnutí desky. Pokud dojde ke změně stavu dveří, program odešle informaci na IFTTT, to aktivuje webhook a pošle email na zadanou adresu.
 
-pro detailnější instrukce: *https://randomnerdtutorials.com/door-status-monitor-using-the-esp8266/*
+*[Detailnější instrukce](https://randomnerdtutorials.com/door-status-monitor-using-the-esp8266/)*
+
