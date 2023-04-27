@@ -14,3 +14,7 @@ U všech programů bude potřeba nastavit následující věci `Wifi_Name = Jmé
 ## K čemu projekty slouží?
 
 Zatím oba projekty jsou určeny k monitorování stavu dveří a následné odeslání notifikace pokud se stav změní. Způsob notifikací je zatím jen `Email` a `WhatsApp`
+
+## Nadhcházející updaty
+
+Implementace času, kde program pošle notifikaci až po nějaké době a napíše že jste zapomněli zavřít dveře
