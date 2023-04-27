@@ -1,47 +1,16 @@
-# Dokumentace programu pro monitorování stavu dveří pomocí ESP8266 a IFTTT
+# Dokumentace o práci a využití ESP8266.
 
 ## očekávaná náročnost
 
-Projekt nebude moc složitý, program by měl být relativně jednoduchý, ale můžou se vyskytnout problémy se znalostmi C++, arduinem a nejspíš budu muset trochu pájet. Implementace IFTTT vypadá jednoduše.
+Projekt nebude moc složitý, program by měl být relativně jednoduchý, ale můžou se vyskytnout problémy se znalostmi C++, arduinem a nejspíš budu muset trochu pájet. Implementace IFTTT vypadá jednoduše. Dále využít jiné externí zdroje pro posílaní notifikací nemusí být náročné.
 
 ## Použité zdroje
 
-Program využívá následující knihovny:
+U projektů využívám ESP8266 modul pro připojení k WiFi a zpracovaní programů, dále využívám magnetický spínač MC-38.
 
-- `ESP8266WiFi.h` pro připojení k WiFi síti
+## Základní nastavení
+U všech programů bude potřeba nastavit následující věci `Wifi_Name = Jméno vaší Wifi sítě` `Wifi_Password = Heslo vaší sítě`, další věci k nastavení najdete u jednotlivých programů v jejich složce.
 
-- `iostream` a `fstream` pro práci s textovými soubory `string` pro práci s řetězci, zatím nefunguje.
+## K čemu projekty slouží?
 
-Program používá webhook od služby `IFTTT`.
-
-## Popis programu
-
-Program monitoruje stav dveří pomocí reedů. Pokud se stav dveří změní, odesílá program informaci o tomto stavu na předem definovaný webhook v IFTTT. Tím se umožní například odeslání notifikace, emailu nebo spuštění jiné akce.
-
-Program je rozdělen do několika funkcí:
-
-### `setup()`
-
-- Funkce inicializuje vstupy a výstupy na ESP8266.
-- Nastavuje přerušení na reedových kontaktech.
-- Připojuje desku k WiFi síti.
-
-### `loop()`
-
-- Funkce průběžně kontroluje, zda se změnil stav dveří.
-- Pokud došlo ke změně, program počká 1500 ms (aby se nestalo, že se stav dveří změní několikrát za sebou) a odešle informaci o stavu dveří na IFTTT.
-
-### `changeDoorStatus()`
-
-- Funkce nastavuje globální proměnnou `doorStatus` na `true`, pokud došlo ke změně stavu dveří.
-
-Program také obsahuje část kódu, která není momentálně použita (výpis výše), ale mohla by být použita pro načítání připojovacích údajů z textového souboru.
-
-## Použití
-
-Před použitím programu je nutné zadat připojovací údaje k WiFi a API klíč od služby IFTTT do příslušných proměnných v kodu **Garage_Door.ino** (`ssid`, `password`, `apiKey`). Dále je nutné přizpůsobit název webhooku (`door_status`) a názvy parametrů (`value1` atd.) dle potřeby.
-
-Program se nahrává na desku ESP8266 a spouští se při zapnutí desky. Pokud dojde ke změně stavu dveří, program odešle informaci na IFTTT, to aktivuje webhook a pošle email na zadanou adresu.
-
-*[Detailnější instrukce](https://randomnerdtutorials.com/door-status-monitor-using-the-esp8266/)*
-
+Zatím oba projekty jsou určeny k monitorování stavu dveří a následné odeslání notifikace pokud se stav změní. Způsob notifikací je zatím jen `Email` a `WhatsApp`
