@@ -4,7 +4,7 @@
 #include <UrlEncode.h>
 
 const char* Wifi_Name = "";
-const char* Wifi_Password = "";
+const char* Wifi_Password = ""; 
 
 String phone_num = "";
 String API = "";
@@ -21,7 +21,7 @@ const int LED = 2;
 
 //check if change interval is longer than 500ms
 unsigned long previousMillis = 0; 
-const long interval = 500;
+const long interval = 2000;
 
 //message part
   void sendMessage(String message){
@@ -34,9 +34,17 @@ const long interval = 500;
 
   // Specify content-type header
   http.addHeader("Content-Type", "application/x-www-form-urlencoded");
-  
+
   // Send HTTP POST request
   int httpResponseCode = http.POST(url);
+  int retries = 3; // Maximum number of retries
+  while (httpResponseCode != 200 && retries > 0) {
+    Serial.println("Error sending message, retrying...");
+    httpResponseCode = http.POST(url);
+    retries--;
+    delay(5000); // Wait 5 seconds between retries
+  }
+  
   if (httpResponseCode == 200){
     Serial.print("Message sent");
   }
@@ -51,7 +59,6 @@ const long interval = 500;
 void setup() {
 
   Serial.begin(9600); //debug
-
   //current door state
   pinMode(reedSwitch, INPUT_PULLUP);
   state = digitalRead(reedSwitch);
@@ -99,7 +106,7 @@ void loop() {
       Serial.println(state);
       Serial.println(doorState);
       
-      sendMessage("door: " + doorState);
+      sendMessage("door: " + doorState); // sends door status
   }
 }
 }
