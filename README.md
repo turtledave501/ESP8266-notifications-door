@@ -1,15 +1,15 @@
 # Dokumentace o práci a využití ESP8266.
 
-## očekávaná náročnost
+## Očekávaná náročnost
 
-Projekt nebude moc složitý, program by měl být relativně jednoduchý, ale můžou se vyskytnout problémy se znalostmi C++, arduinem a nejspíš budu muset trochu pájet. Implementace IFTTT vypadá jednoduše. Dále využít jiné externí zdroje pro posílaní notifikací nemusí být náročné.
+Projekt nebude moc složitý, programy by měli být relativně jednoduché, ale můžou se vyskytnout problémy se znalostmi C++, arduinem a nejspíš budu muset trochu pájet. Implementace IFTTT vypadá jednoduše. Dále využití jiných zdrojů pro posílaní notifikací nemusí být náročné.
 
 ## Použité zdroje
 
 U projektů využívám ESP8266 modul pro připojení k WiFi a zpracovaní programů, dále využívám magnetický spínač MC-38.
 
 ## Základní nastavení
-U všech programů bude potřeba nastavit následující věci `Wifi_Name = Jméno vaší Wifi sítě` `Wifi_Password = Heslo vaší sítě`, další věci k nastavení najdete u jednotlivých programů v jejich složce.
+U všech programů bude potřeba nastavit následující věci `Wifi_Name` = `Jméno vaší Wifi sítě` `Wifi_Password` = `Heslo vaší sítě`, další věci k nastavení najdete u jednotlivých programů v jejich složce.
 
 ## K čemu projekty slouží?
 
@@ -17,4 +17,6 @@ Zatím oba projekty jsou určeny k monitorování stavu dveří a následné ode
 
 ## Nadcházející updaty
 
-Implementace času, kde program pošle notifikaci až po nějaké době a napíše že jste zapomněli zavřít dveře
+- [x]  Implementace času, kde program pošle notifikaci až po nějaké době a napíše že jste zapomněli zavřít dveře
+- [ ]  Implementovat jiné služby
+- [ ]  Zjednodušit použití, úprava WiFi údajů mimo .ino 
