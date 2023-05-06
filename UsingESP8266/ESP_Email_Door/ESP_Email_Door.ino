@@ -14,10 +14,9 @@ String doorState;
 unsigned long previousMillis = 0; 
 const long interval = 500;
 
-//input data here
+//wifi credentials
 const char* WiFi_Name = "";
-const char* Wifi_Password
- = ""; 
+const char* Wifi_Password = ""; 
 const char* IFTTT_API_key = "";
 const char* host = "maker.ifttt.com";
 
@@ -45,13 +44,15 @@ void setup() {
     Serial.print("."); // connecting
   }
   Serial.println("");
-  Serial.println("WiFi connected!!!!");  
+  Serial.println("WiFi connected!!!!"); // connected to wifi 
 }
 
+//interrupt function
 ICACHE_RAM_ATTR void changeDoorStatus() {
   Serial.println("Door status changed");
   doorStatus = true;
 }
+
 //update void
 void loop() {
   
@@ -66,7 +67,8 @@ void loop() {
       }
       else{
         doorState = "open";
-      }  
+      }
+
       //prints door state
       digitalWrite(LED, state);
       doorStatus = false;
@@ -86,10 +88,11 @@ void loop() {
       String url = "/trigger/door_status/with/key/"; 
       url += IFTTT_API_key;
 
-      //POST payload    
+      // POST request
       Serial.print("Requesting URL: ");
       Serial.println(url);
-      client.print(String("POST ") + url + " HTTP/1.1\r\n" +
+      // Send the request to IFTTT
+      client.print(String("POST ") + url + " HTTP/1.1\r\n" + 
                           "Host: " + host + "\r\n" + 
                           "Content-Type: application/x-www-form-urlencoded\r\n" + 
                           "Content-Length: 13\r\n\r\n" +

@@ -3,9 +3,11 @@
 #include <WiFiClient.h>
 #include <UrlEncode.h>
 
+//wifi credentials
 const char* Wifi_Name = "";
 const char* Wifi_Password = ""; 
 
+//Callmebot credentials
 String phone_num = ""; // with +prefix (+420)
 String API = "";
 
@@ -48,6 +50,8 @@ void sendMessage(String message){
   // Send HTTP POST request
   int httpResponseCode = http.POST(url);
   int retries = 3; // Maximum number of retries
+
+  // Retry sending message if it fails
   while (httpResponseCode != 200 && retries > 0) {
     Serial.println("Error sending message, retrying...");
     httpResponseCode = http.POST(url);
@@ -55,9 +59,11 @@ void sendMessage(String message){
     delay(5000); // Wait 5 seconds between retries
   }
   
+  // If message was sent successfully
   if (httpResponseCode == 200){
     Serial.print("Message sent");
   }
+  // If message failed to send
   else{
     Serial.println("Error");
     Serial.print("HTTP response code: ");
@@ -65,8 +71,8 @@ void sendMessage(String message){
   }
 }
 
+//Inital setup
 void setup() {
-
   Serial.begin(9600); //debug
   //current door state
   pinMode(reedSwitch, INPUT_PULLUP);
@@ -82,7 +88,7 @@ void setup() {
 
   // Connect to Wi-Fi
   WiFi.begin (Wifi_Name, Wifi_Password);
-  
+  // Wait until connected
   while (WiFi.status() != WL_CONNECTED) {
     delay(2000);
     Serial.print("."); // connecting
@@ -90,7 +96,7 @@ void setup() {
   Serial.println("");
   Serial.println("WiFi connected!!!!");  
 }
-
+//interrupt function
 ICACHE_RAM_ATTR void changeDoorStatus() {
   unsigned long currentTime = millis();
   if (currentTime - lastDebounceTime > debounceDelay) {
@@ -101,25 +107,29 @@ ICACHE_RAM_ATTR void changeDoorStatus() {
 
 //update void
 void loop() {
-  
+
+  // Check if the door state has changed
   if (doorStatus){
     unsigned long currentMillis = millis();
-    if(currentMillis - previousMillis >= interval) { //this is so that updates aren't called rapidly but it waits 500ms
+    //this is so that updates aren't called rapidly but it waits for the interval
+    if(currentMillis - previousMillis >= interval) {
       previousMillis = currentMillis; 
       // If a state has occured, invert the current door state   
       state = digitalRead(reedSwitch);
       
       if (state != prevState) {
+        // Door has closed
         if(state) {
           doorState = "closed";
         }
+        // Door has opened so timer starts
         else{
           doorState = "open";
           timerStart = millis(); // Start the timer
           doorOpen = true; // Set doorOpen to true
         }
         
-        //prints door state
+        // Update LED and send door state
         digitalWrite(LED, state);
         doorStatus = false;
         Serial.println(state);
@@ -136,13 +146,16 @@ void loop() {
     unsigned long currentTime = millis();
     unsigned long elapsedTime = currentTime - timerStart;
     unsigned long remainingTime = timerDuration - elapsedTime;
-    
+
+    // Door is open and timer has expired, send notification
     if (remainingTime <= 0) {
       sendMessage("Door still open!"); // send notification
       doorOpen = false; // Reset timer and doorOpen
       timerStart = 0;
     }
-    else if (state) { // Door is closed, reset timer and doorOpen
+
+    // Door is closed, reset timer and doorOpen
+    else if (state) {
       doorOpen = false;
       timerStart = 0;
     }

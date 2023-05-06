@@ -1,11 +1,14 @@
+//Librarys
 #include <ESP8266WiFi.h>
 #include <ESP8266HTTPClient.h>
 #include <WiFiClient.h>
 #include <UrlEncode.h>
 
+// Wifi credentials
 const char* Wifi_Name = "";
-const char* Wifi_Password = ""; 
+const char* Wifi_Password = "";
 
+// Callmebot credentials
 String phone_num = "";
 String API = "";
 
@@ -44,10 +47,11 @@ const long interval = 2000;
     retries--;
     delay(5000); // Wait 5 seconds between retries
   }
-  
-  if (httpResponseCode == 200){
+  // If the message was sent successfully
     Serial.print("Message sent");
+  if (httpResponseCode == 200){
   }
+  // If the message was NOT sent successfully
   else{
     Serial.println("Error");
     Serial.print("HTTP response code: ");
@@ -56,7 +60,7 @@ const long interval = 2000;
 
 }
 
-void setup() {
+void setup() { //initial setup
 
   Serial.begin(9600); //debug
   //current door state
@@ -78,17 +82,18 @@ void setup() {
     Serial.print("."); // connecting
   }
   Serial.println("");
-  Serial.println("WiFi connected!!!!");  
+  Serial.println("WiFi connected!!!!"); //connected to wifi
+}
+//interrupt function
+ICACHE_RAM_ATTR void changeDoorStatus() { 
+  Serial.println("Door status changed"); 
+  doorStatus = true; 
 }
 
-ICACHE_RAM_ATTR void changeDoorStatus() {
-  Serial.println("Door status changed");
-  doorStatus = true;
-}
-//update void
+//main loop
 void loop() {
   
-  if (doorStatus){
+  if (doorStatus){ //if door status changed
     unsigned long currentMillis = millis();
     if(currentMillis - previousMillis >= interval) { //this is so that updates aren't called rapidly but it waits 500ms
       previousMillis = currentMillis; 
@@ -102,9 +107,9 @@ void loop() {
       }  
       //prints door state
       digitalWrite(LED, state);
-      doorStatus = false;
+      doorStatus = false; //reset door status
       Serial.println(state);
-      Serial.println(doorState);
+      Serial.println(doorState); //debug
       
       sendMessage("door: " + doorState); // sends door status
   }
