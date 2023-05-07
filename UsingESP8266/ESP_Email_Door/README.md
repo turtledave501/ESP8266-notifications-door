@@ -12,14 +12,21 @@ Program je rozdělen do několika funkcí:
 
 Pro základní nastavení programu je nutné provést následující kroky:
 
-- Stáhněte a nainstalujte Arduino IDE.
+- Stáhněte a nastavte[Arduino IDE](https://www.arduino.cc/en/software).
 - Připojte ESP8266 k počítači pomocí USB kabelu.
-- Otevřete program ESP_Email_Door.ino v Arduino IDE.
+- Otevřete program `ESP_Email_Door.ino` v Arduino IDE.
 - Zkontrolujte, zda jsou v kódu správně nastaveny připojovací údaje k WiFi a API klíč od služby IFTTT. Údaje se nachází v následujícím bloku kódu:
 - Dále je nutné přizpůsobit název webhooku (door_status) ve webové adrese:
 - Vyberte správnou desku a sériový port v Arduino IDE.
 - Nahrát program na desku pomocí tlačítka "Upload".
 - Po nahrání programu by se deska měla připojit k WiFi síti a začít odesílat informace o stavu dveří na IFTTT.
+
+## Nastavení IFTTT
+
+- Běžte na: https://ifttt.com/create
+- V prvním výběru vyberte službu `Webhooks` a vyberte recieve web request
+- Ve druhém výběru vyberte službu `Email` a nastavte zbytek dle potřeb
+- Bežte na https://ifttt.com/maker_webhooks a otevřete složku `documentation`, nastavte `{event}` na jmeno webhooku
 
 ## Funkce
 ### `setup()`
@@ -72,3 +79,4 @@ Program lze dále vylepšit a upravit tak, aby lépe vyhovoval potřebám uživa
 ## Závěr
 
 Tento program umožňuje monitorování stavu dveří a odesílání notifikací, emailů a spouštění jiných akcí pomocí služby IFTTT. Program je poměrně jednoduchý, ale může být dále upraven a vylepšen podle potřeb uživatele.
+
