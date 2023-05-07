@@ -59,6 +59,8 @@ Program může být omezen tím, že reedové spínače nejsou dostatečně pře
 
 Je také nutné mít aktivní WiFi připojení, aby program mohl odeslat informaci na IFTTT.
 
+Bezplatná verze IFTTT umožňuje odesílat pouze 30 emailů za den. Pokud je tedy stav dveří často měněn, může se stát, že program nebude moci odeslat informaci na IFTTT.
+
 ## Další možnosti vylepšení
 
 Program lze dále vylepšit a upravit tak, aby lépe vyhovoval potřebám uživatele. Například:

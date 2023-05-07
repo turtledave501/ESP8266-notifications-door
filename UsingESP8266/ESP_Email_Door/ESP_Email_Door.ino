@@ -12,7 +12,7 @@ String doorState;
 
 //check if change interval is longer than 500ms
 unsigned long previousMillis = 0; 
-const long interval = 500;
+const long interval = 1000;
 
 //wifi credentials
 const char* WiFi_Name = "";
@@ -40,7 +40,7 @@ void setup() {
   WiFi.begin (WiFi_Name, Wifi_Password);
   
   while (WiFi.status() != WL_CONNECTED) {
-    delay(500);
+    delay(1000);
     Serial.print("."); // connecting
   }
   Serial.println("");
