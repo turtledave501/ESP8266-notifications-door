@@ -12,7 +12,7 @@ Program je rozdělen do několika funkcí:
 
 Pro základní nastavení programu je nutné provést následující kroky:
 
-- Stáhněte a nastavte[Arduino IDE](https://www.arduino.cc/en/software).
+- Stáhněte a nastavte [Arduino IDE](https://www.arduino.cc/en/software).
 - Připojte ESP8266 k počítači pomocí USB kabelu.
 - Otevřete program `ESP_Email_Door.ino` v Arduino IDE.
 - Zkontrolujte, zda jsou v kódu správně nastaveny připojovací údaje k WiFi a API klíč od služby IFTTT. Údaje se nachází v následujícím bloku kódu:

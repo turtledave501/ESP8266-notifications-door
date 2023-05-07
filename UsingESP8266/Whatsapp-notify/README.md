@@ -10,7 +10,7 @@ Program je napsán v jazyce C++ pro platformu ESP8266.
 
 Pro základní nastavení programu je nutné provést následující kroky:
 
-- Stáhněte a nastavte[Arduino IDE](https://www.arduino.cc/en/software).
+- Stáhněte a nastavte [Arduino IDE](https://www.arduino.cc/en/software).
 - Připojte ESP8266 k počítači pomocí USB kabelu.
 - Otevřete program WhatsApp-notify.ino v Arduino IDE.
 - Vyplňte proměnné `Wifi_Name` a `Wifi_Password` s názvem a heslem vaší WiFi sítě.

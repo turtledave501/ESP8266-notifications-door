@@ -11,7 +11,7 @@ Program je v C++ a programuji v Arduino IDE.
 
 ## Základní nastavení
 - U všech programů bude potřeba nastavit následující věci `Wifi_Name` = `Jméno vaší Wifi sítě` `Wifi_Password` = `Heslo vaší sítě`, další věci k nastavení najdete u jednotlivých programů v jejich složce.
-- Stáhněte a nastavte[Arduino IDE](https://www.arduino.cc/en/software).
+- Stáhněte a nastavte [Arduino IDE](https://www.arduino.cc/en/software).
 
 ## Nastavení ESP8266 a spínače
 
